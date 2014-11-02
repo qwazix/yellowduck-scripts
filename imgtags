@@ -1,0 +1,34 @@
+#!/bin/bash
+
+#
+# Licensed under the MIT license (http://opensource.org/licenses/MIT)
+#
+# Copyright (c) 2014 Michael Demetriou
+#
+
+if [ "$1" == "--help" ]
+then
+    echo " "
+    echo "prints HTML image tags from current folder"
+    echo "Usage: imgtags -c className -s 'width:100px' -p '/path/to/file'"
+    echo " "
+    exit
+fi
+
+while getopts ":s:c:p:" o; do
+#    echo ${o}    
+eval ${o}=\${OPTARG}
+done
+#shift $((OPTIND-1))
+
+if [ ! -z "$c" ]
+then 
+   class="class=\"$c\""
+fi
+
+if [ ! -z "$s" ]
+then 
+   style="style=\"$s\""
+fi
+
+for file in *; do echo "<img src=\"$p$file\" $style $class>"; done;
